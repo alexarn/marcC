@@ -43,11 +43,15 @@ void Field_as_text(Field *This) {
     } else {
         printf("%s  %d _", This->tag, This->is_control_field);
         Subfield *tmp = This->subfields;
-        printf("%c%s\n", tmp->subtag, tmp->value);
-        while ( tmp->nxt != NULL ) {
-            tmp = tmp->nxt;
-            printf("       _%c%s\n", tmp->subtag, tmp->value);
-        }
+	if ( This->is_control_field ) {
+	    printf("%s\n", tmp->value);
+	} else {
+	    printf("%c%s\n", tmp->subtag, tmp->value);
+	    while ( tmp->nxt != NULL ) {
+		tmp = tmp->nxt;
+		printf("       _%c%s\n", tmp->subtag, tmp->value);
+	    }
+	}
     }
 }
 
