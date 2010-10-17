@@ -3,13 +3,14 @@
 
 static void Field_Init(Field*);
 
-Field new_Field(char * tag, int is_control_field) {
-    Field This;
-    This.tag = tag;
-    This.is_control_field = is_control_field;
-    This.subfields = NULL;
-    This.nxt = NULL;
-    Field_Init(&This);
+Field *new_Field(char * tag, int is_control_field) {
+    Field *This = malloc(sizeof(Field));
+    //Field This;
+    This->tag = tag;
+    This->is_control_field = is_control_field;
+    This->subfields = NULL;
+    This->nxt = NULL;
+    Field_Init(This);
     return This;
 }
 

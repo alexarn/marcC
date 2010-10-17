@@ -77,7 +77,7 @@ Record decode(char *record) {
 
 	    int is_control_field = ( controlchar == 31 ) ? 0 : 1;
 printf("Nouveau Field");
-	    Field myNewField = new_Field(tag, is_control_field);
+	    Field *myNewField = new_Field(tag, is_control_field);
 printf(" => passé\n");
 
 	    // TEMP
@@ -92,7 +92,7 @@ printf(" => passé\n");
 	    if ( controlchar != 31 ) {
 
 printf("Nouveau SubField de controle");
-		myNewField.add_subfield(&myNewField, ' ', value);
+		myNewField->add_subfield(myNewField, ' ', value);
 printf(" => passé\n");
 		//myNewField.as_text(&myNewField);
 		//myNewRecord.add_field(&myNewRecord, &myNewField);
@@ -116,7 +116,7 @@ printf(" => passé\n");
 			char * value_of_subfiled = substr(subfield, 1, strlen(subfield)-1);
 
 printf("Nouveau SubField");
-			myNewField.add_subfield(&myNewField, subtag, value_of_subfiled);
+			myNewField->add_subfield(myNewField, subtag, value_of_subfiled);
 printf(" => passé\n");
 						
 		    }
@@ -128,7 +128,7 @@ printf(" => passé\n");
 	    }
 	    i++;
 printf("Ajout du Field au record");
-	    myNewRecord.add_field(&myNewRecord, &myNewField);
+	    myNewRecord.add_field(&myNewRecord, myNewField);
 printf(" => passé\n");
 printf("--------------------------------\n");
 	}

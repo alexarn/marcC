@@ -21,7 +21,7 @@ typedef struct Field
 	void(*as_text)(struct Field*);
     } Field;
 
-Field new_Field(char*, int);
+Field *new_Field(char*, int);
 void Field_add_subfield(Field*, char, char*);
 void Field_as_text(Field*);
 int Field_is_controlfield(char*);
