@@ -14,14 +14,18 @@ typedef struct Field
     {
 	char *tag;
 	Subfield *subfields;
+	char pos1;
+	char pos2;
 	int is_control_field;
 	struct Field *nxt;
 
+	void(*add_indicators)(struct Field*, char, char);
 	void(*add_subfield)(struct Field*, char, char*);
 	void(*as_text)(struct Field*);
     } Field;
 
 Field *new_Field(char*, int);
+void Field_add_indicators(Field*, char, char);
 void Field_add_subfield(Field*, char, char*);
 void Field_as_text(Field*);
 int Field_is_controlfield(char*);

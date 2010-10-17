@@ -98,6 +98,8 @@ Record decode(char *record) {
 
 		int number_of_subfields = 0;
 		subfield = strtok(value, delimiter );
+
+		myNewField->add_indicators(myNewField, subfield[0], subfield[1]);
 		while ( subfield != NULL ) {
 		    if ( number_of_subfields > 0 ) {
 			char * tmpsubtag = substr(subfield, 0, 1);

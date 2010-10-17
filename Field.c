@@ -7,6 +7,8 @@ Field *new_Field(char * tag, int is_control_field) {
     Field *This = malloc(sizeof(Field));
     //Field This;
     This->tag = tag;
+    This->pos1 = ' ';
+    This->pos2 = ' ';
     This->is_control_field = is_control_field;
     This->subfields = NULL;
     This->nxt = NULL;
@@ -15,8 +17,14 @@ Field *new_Field(char * tag, int is_control_field) {
 }
 
 static void Field_Init(Field *This) {
+    This->add_indicators = Field_add_indicators;
     This->add_subfield = Field_add_subfield;
     This->as_text = Field_as_text;
+}
+
+void Field_add_indicators(Field *This, char indicators1, char indicators2) {
+    This->pos1 = indicators1;
+    This->pos2 = indicators2;
 }
 
 void Field_add_subfield(Field *This, char subtag, char value[]) {
@@ -41,7 +49,7 @@ void Field_as_text(Field *This) {
     if ( This->subfields == NULL ) {
         printf("Empty field\n");
     } else {
-        printf("%s  %d _", This->tag, This->is_control_field);
+        printf("%s %c%c _", This->tag, This->pos1, This->pos2);
         Subfield *tmp = This->subfields;
 	if ( This->is_control_field ) {
 	    printf("%s\n", tmp->value);
