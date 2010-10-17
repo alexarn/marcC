@@ -13,6 +13,10 @@ File File_in( char file[] )
     This.filename = file;
     This.cnt = 0;
     This.fh = fopen(file, "r+");
+    if ( This.fh == NULL ) {
+	printf("can't open file: %s\n", file);
+	exit(EXIT_FAILURE);
+    }
     return This;
 }
 
