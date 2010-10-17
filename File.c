@@ -80,26 +80,11 @@ Record decode(char *record) {
 	    int controlchar = tmp_controlchar[0];
 
 	    int is_control_field = ( controlchar == 31 ) ? 0 : 1;
-printf("Nouveau Field");
 	    Field *myNewField = new_Field(tag, is_control_field);
-printf(" => passé\n");
-
-	    // TEMP
-	    printf("tagdata: '%s'\n", tagdata);
-	    printf("tag: '%s'\n", tag);
-	    printf("Control: '%d'\n", controlchar);
-	    if ( controlchar == 31 ) { 
-		printf("true\n");
-	    }
 
 	    // if control field
 	    if ( controlchar != 31 ) {
-
-printf("Nouveau SubField de controle");
 		myNewField->add_subfield(myNewField, ' ', value);
-printf(" => passé\n");
-		//myNewField.as_text(&myNewField);
-		//myNewRecord.add_field(&myNewRecord, &myNewField);
 	    }
 
 	    // if no control field 
@@ -111,30 +96,22 @@ printf(" => passé\n");
 		char ascii = 31;
 		sprintf(delimiter, "%s%c", base, ascii);
 
-		int nsf = 0;
+		int number_of_subfields = 0;
 		subfield = strtok(value, delimiter );
 		while ( subfield != NULL ) {
-		    if ( nsf > 0 ) {
+		    if ( number_of_subfields > 0 ) {
 			char * tmpsubtag = substr(subfield, 0, 1);
 			char subtag = tmpsubtag[0];
 			char * value_of_subfiled = substr(subfield, 1, strlen(subfield)-1);
 
-printf("Nouveau SubField");
 			myNewField->add_subfield(myNewField, subtag, value_of_subfiled);
-printf(" => passé\n");
-						
 		    }
 		    subfield = strtok(NULL, delimiter );
-		    nsf++;
+		    number_of_subfields++;
 		}
-		//myNewField.as_text(&myNewField);
-		//myNewRecord.add_field(&myNewRecord, &myNewField);
 	    }
 	    i++;
-printf("Ajout du Field au record");
 	    myNewRecord.add_field(&myNewRecord, myNewField);
-printf(" => passé\n");
-printf("--------------------------------\n");
 	}
     } 
     else {

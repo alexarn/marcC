@@ -36,8 +36,6 @@ int main(int argc, char *argv[])
    // record.as_text(&record); 
 
     char * chose = monfichier.Next(&monfichier);
-    printf("%s\n", chose);
-    printf("%s\n", "-----------------------------------------------------------------");
 
 	/*
     //printf("%d\n", monfichier.cnt);

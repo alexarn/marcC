@@ -23,16 +23,12 @@ void Record_set_leader(Record *This, char leader[]) {
 void Record_add_field(Record *This, Field *f) {
     if ( This->fields == NULL ) {
         This->fields = f;
-printf(" . °");
     } else {
         Field *temp = This->fields;
-if ( temp->nxt == NULL ) { printf(" / "); }
         while ( temp->nxt != NULL ) {
             temp = temp->nxt;
-printf(" . ");
         }
         temp->nxt = f;
-printf(" . O");
     }
 }
 
