@@ -6,7 +6,7 @@
 
 static void File_Init(File*);
 
-File File_in( char file[] )
+File File_in( char *file )
 {
     File This;
     File_Init(&This);

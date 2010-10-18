@@ -11,7 +11,7 @@ typedef struct File
 	Record*(*Next)(struct File*);
     } File; 
 
-File File_in(char chaine[] );
+File File_in(char *string);
 Record * File_Next(File*);
 char * get_next_record(File*);
 Record * decode(char*);
