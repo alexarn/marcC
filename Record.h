@@ -12,7 +12,7 @@ typedef struct Record
 	void(*as_text)(struct Record*);
     } Record;
 
-Record new_Record();
+Record *new_Record();
 void Record_set_leader(Record*, char*);
 void Record_add_field(Record*, Field*);
 void Record_as_text(Record*);

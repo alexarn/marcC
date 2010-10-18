@@ -7,6 +7,11 @@ int main(int argc, char *argv[])
     char file[] = "camel.usmarc";
     File monfichier = File_in( file );
 
+    Record *r = monfichier.Next(&monfichier);
+    while ( r != NULL ) {
+	r->as_text(r);
+	r = monfichier.Next(&monfichier);
+    }
    // Record record = new_Record();
 
    // //printf("%d\n", monfichier.cnt);
@@ -35,7 +40,7 @@ int main(int argc, char *argv[])
 
    // record.as_text(&record); 
 
-    char * chose = monfichier.Next(&monfichier);
+    //char * chose = monfichier.Next(&monfichier);
 
 	/*
     //printf("%d\n", monfichier.cnt);
@@ -48,8 +53,8 @@ int main(int argc, char *argv[])
     printf("%s\n", chose3);
     printf("%s\n", "-----------------------------------------------------------------");
 	*/
-    Record myNewRecord = decode(chose);
-    myNewRecord.as_text(&myNewRecord); 
+    //Record myNewRecord = decode(chose);
+    //myNewRecord.as_text(&myNewRecord); 
     //printf("LDR %s\n", ldr);
 
     //printf("%d\n", monfichier.cnt);

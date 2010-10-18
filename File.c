@@ -24,10 +24,16 @@ static void File_Init(File *This) {
     This->Next = File_Next;
 }
 
-char * File_Next(File *This) {
+Record *File_Next(File *This) {
 
-    char * record = get_next_record(This);
-    return record;
+char * record;
+Record *r;
+    if ( ( record = get_next_record(This) ) != NULL ) {
+	r = decode(record);
+    } else {
+	r = NULL;
+    }
+    return r;
 }
 
 char * get_next_record(File *This) {
@@ -42,21 +48,23 @@ char * get_next_record(File *This) {
     }
 
     recBuffer = malloc(strlen(record) + 1);
-    if (recBuffer != NULL) {
-	strcpy(recBuffer, record);
+    if (recBuffer != NULL && caractere != -1) {
+        strcpy(recBuffer, record);
+    } else {
+	recBuffer = NULL;
     }
 
     return recBuffer;
 }
 
-Record decode(char *record) {
+Record *decode(char *record) {
 
-    Record myNewRecord = new_Record();
+    Record *myNewRecord = new_Record();
     char * r = record;
 
     // Extract LDR ( characters 0 to 23 )
     char * ldr = substr(r, 0, LEADER_LEN); 
-    myNewRecord.set_leader(&myNewRecord, ldr);
+    myNewRecord->set_leader(myNewRecord, ldr);
 
     //Extract Data start
     int start_data = atoi(substr(r, 12, 5)); 
@@ -113,7 +121,7 @@ Record decode(char *record) {
 		}
 	    }
 	    i++;
-	    myNewRecord.add_field(&myNewRecord, myNewField);
+	    myNewRecord->add_field(myNewRecord, myNewField);
 	}
     } 
     else {

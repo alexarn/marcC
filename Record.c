@@ -3,14 +3,14 @@
 
 static void Record_Init(Record*);
 
-Record new_Record() {
-    Record This;
-    Record_Init(&This);
+Record *new_Record() {
+    Record *This = malloc(sizeof(Record));
+    Record_Init(This);
     return This;
 }
 
 static void Record_Init(Record *This) {
-	This->fields = NULL;
+    This->fields = NULL;
     This->set_leader = Record_set_leader;
     This->add_field = Record_add_field;
     This->as_text = Record_as_text;
@@ -36,13 +36,13 @@ void Record_as_text(Record *This) {
     if ( This->fields == NULL ) {
         printf("Empty record\n");
     } else {
-		printf("LDR %s\n", This->leader);
-		Field *tmp = This->fields;
-		tmp->as_text(tmp);
+	printf("LDR %s\n", This->leader);
+	Field *tmp = This->fields;
+	tmp->as_text(tmp);
     	while ( tmp->nxt != NULL ) {
-			tmp = tmp->nxt;
-			tmp->as_text(tmp);
+	    tmp = tmp->nxt;
+	    tmp->as_text(tmp);
     	}
-
+	printf("\n");
     }
 }
